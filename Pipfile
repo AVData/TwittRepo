@@ -12,6 +12,8 @@ tweepy = "*"
 basilica = "*"
 python-dotenv = "*"
 python-decouple = "*"
+numpy = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3.7"

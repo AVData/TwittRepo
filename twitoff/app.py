@@ -31,7 +31,9 @@ def create_app():
     @app.route('/')
     def root():
         DB.create_all()
-        return render_template('base.html', title='Home', users=User.query.all())
+        return render_template('base.html',
+                                title='Home',
+                                users=User.query.all())
 
     @app.route('/user', methods=['POST'])
     @app.route('/user/<name>', methods=['GET'])
@@ -45,7 +47,10 @@ def create_app():
         except Exception as e:
             message = f'Error while trying to add user {name}: {e}'
             tweets = []
-        return render_template('user.html', title=name, message=message, tweets=tweets)
+        return render_template('user.html',
+                                title=name,
+                                message=message,
+                                tweets=tweets)
 
 
     @app.route('/reset')

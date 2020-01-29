@@ -1,7 +1,6 @@
 """Prediction of Users based on Tweet embeddings."""
 import numpy as np
 from sklearn.linear_model import LogisticRegression
-
 from .models import User
 from .twitter import BASILICA
 
@@ -20,3 +19,16 @@ def predict_user(user1_name, user2_name, tweet_text):
 
     tweet_embedding = BASILICA.embed_sentence(tweet_text, model='twitter')
     return log_reg.predict(np.array(tweet_embedding).reshape(1, -1))
+
+
+'''
+things to consider doing for a better model: (1) collect more tweets, 
+(4) play with reduced dimensionality techniques, (2) use a more powerful model
+like random forests or trees, (3) reshuffle your data (reshuffle embedings and
+labels in a way where labels and embeddings are still aligned)
+'''
+
+'''
+If you really want to experiment fire up a jupyter notebook, and work there with
+some data tuning etc.
+'''
