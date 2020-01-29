@@ -3,10 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>Twitoff App</title>
-        <link rel="stylesheet" href="/css/master.css">
     </head>
+
     <body>
-        <h1>Welcome to {{title}}!!</h1>
+        {% block content %}
+        <h1> Twitoff!! </h1>
+            <form action="/user" method="post">
+            <input type="text" name="username" placeholder="User to add">
+            <input type="submit" value="Add User">
+            </form>
+        {% endblock %}
+
           <ul>
               <h2>Users</h2>
               {% for user in users %}
