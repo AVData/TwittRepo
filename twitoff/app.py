@@ -49,6 +49,7 @@ def create_app():
 
         if user1 == user2:
             message = 'Compare to a two different users!'
+            return message
         else:
             prediction = predict_user(user1, user2, tweet_text)
             message = '"{}" is more likely to be said by {} than {}'.format(
