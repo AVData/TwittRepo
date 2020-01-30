@@ -11,8 +11,6 @@ class User(DB.Model):
         return '<User {}>'.format(self.name)
 
 class Tweet(DB.Model):
-    # id = DB.Column(DB.Integer, primary_key=True)
-    # text = DB.Column(DB.Unicode(280), nullable=False)
     id = DB.Column(DB.BigInteger, primary_key=True)
     text = DB.Column(DB.Unicode(500), nullable=False)
     embedding = DB.Column(DB.PickleType, nullable=False)

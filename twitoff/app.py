@@ -3,6 +3,7 @@ from decouple import config
 from flask import Flask, render_template, request
 from .models import DB, User
 from .twitter import add_or_update_user
+from .predict import predict_user
 
 # the following code is all from the Bruno lecture
 
@@ -59,7 +60,8 @@ def create_app():
         DB.create_all()
         return render_template('base.html', title='Reset database!')
 
-    @app.route('/predict')
-    
+    # @app.route('/predict')
+    # def predict_user():
+
 
     return app
