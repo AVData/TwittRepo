@@ -44,7 +44,7 @@ def create_app():
             if request.method == 'POST':
                 add_or_update_user(name)
                 message = f'User {name} successfully added!'
-            tweets = User.query.filter(User.name==name).one().tweets
+            tweets = User.query.filter(User.name == name).one().tweets
         except Exception as e:
             message = f'Error while trying to add user {name}: {e}'
             tweets = []

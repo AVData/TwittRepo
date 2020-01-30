@@ -3,6 +3,16 @@ import basilica
 from decouple import config
 from twitoff.models import DB, Tweet, User
 
+
+TWITTER_USERS = ['elonmusk',
+                 'nasa',
+                 'emma_ranforest'
+                 'google',
+                 'theeconomist',
+                 'browneyesvargas',
+                 'thisisjorgelima',
+                 'lorischl_otter']
+
 TWITTER_AUTH = tweepy.OAuthHandler(config('TWITTER_CONSUMER_API_KEY'),
                                    config('TWITTER_CONSUMER_API_SECRET'))
 TWITTER_AUTH.set_access_token(config('TWITTER_ACCESS_TOKEN'),
@@ -56,3 +66,11 @@ def add_or_update_user(name):
         raise e
     else:
         DB.session.commit()
+
+def add_default_users(users=TWITTER_USERS):
+    for user in users:
+        add_or_update_user(user)
+
+def update_all_users():
+    for user in User.query.all():
+        add_or_update_user(user.name)
