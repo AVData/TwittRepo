@@ -6,6 +6,7 @@ from twitoff.models import DB, Tweet, User
 
 TWITTER_USERS = ['elonmusk',
                  'nasa',
+                 'emma_ranforest',
                  'google',
                  'theeconomist',
                  'browneyesvargas']
