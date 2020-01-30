@@ -6,12 +6,9 @@ from twitoff.models import DB, Tweet, User
 
 TWITTER_USERS = ['elonmusk',
                  'nasa',
-                 'emma_ranforest'
                  'google',
                  'theeconomist',
-                 'browneyesvargas',
-                 'thisisjorgelima',
-                 'lorischl_otter']
+                 'browneyesvargas']
 
 TWITTER_AUTH = tweepy.OAuthHandler(config('TWITTER_CONSUMER_API_KEY'),
                                    config('TWITTER_CONSUMER_API_SECRET'))
@@ -56,7 +53,7 @@ def add_or_update_user(name):
 
             # Adds tweet info to Tweets table
             db_tweet = Tweet(id=tweet.id,
-                             text=tweet.text[:300],
+                             text=tweet.full_text[:300],
                              embedding=embedding)
             db_user.tweets.append(db_tweet)
             DB.session.add(db_tweet)
