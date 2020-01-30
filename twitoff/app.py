@@ -59,4 +59,7 @@ def create_app():
         DB.create_all()
         return render_template('base.html', title='Reset database!')
 
+    @app.route('/predict')
+    
+
     return app
