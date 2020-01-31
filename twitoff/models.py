@@ -7,8 +7,8 @@ class User(DB.Model):
     name = DB.Column(DB.String(20), unique=True, nullable=False)
     newest_tweet_id = DB.Column(DB.BigInteger, nullable=False)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.name)
+    # def __repr__(self):
+    #     return '<User {}>'.format(self.name)
 
 class Tweet(DB.Model):
     id = DB.Column(DB.BigInteger, primary_key=True)
