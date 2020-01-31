@@ -77,6 +77,7 @@ def create_app():
 
     @app.route('/add_default')
     def add_default():
+        DB.create_all()
         add_default_users()
         return render_template('base.html',
                                 users=User.query.all(),
