@@ -49,17 +49,17 @@ def create_app():
 
         if user1 == user2:
             message = 'Error: Compare two different users!'
-            return render_template('predict.html',
-                                    title='Prediction',
-                                    message=message)
+            # return render_template('predict.html',
+            #                         title='Prediction',
+            #                         message=message)
         else:
             prediction = predict_user(user1, user2, tweet_text)
             message = '"{}" is more likely to be said by {} than {}'.format(
                 request.values['tweet_text'], user1 if prediction else user2,
                 user2 if prediction else user1)
-            return render_template('predict.html',
-                                    title='Prediction',
-                                    message=message)
+        return render_template('predict.html',
+                                title='Prediction',
+                                message=message)
 
     @app.route('/reset')
     def reset():
