@@ -1,21 +1,26 @@
+'''SQLAlchemy models for twitoff'''
+
 from flask_sqlalchemy import SQLAlchemy
 
 DB = SQLAlchemy()
+
 
 class User(DB.Model):
     id = DB.Column(DB.BigInteger, primary_key=True)
     name = DB.Column(DB.String(20), unique=True, nullable=False)
     newest_tweet_id = DB.Column(DB.BigInteger, nullable=False)
 
-    # def __repr__(self):
-    #     return '<User {}>'.format(self.name)
+    def __repr__(self):
+        return '<User %r>' % self.name
+
 
 class Tweet(DB.Model):
     id = DB.Column(DB.BigInteger, primary_key=True)
     text = DB.Column(DB.Unicode(500), nullable=False)
     embedding = DB.Column(DB.PickleType, nullable=False)
     user_id = DB.Column(DB.BigInteger, DB.ForeignKey('user.id'), nullable=False)
+    # changing from tweets in the backref args to text; didn't work
     user = DB.relationship("User", backref=DB.backref('tweets', lazy=True))
 
-    # def __repr__(self):
-    #     return '<Tweet {}>'.format(self.text)
+    def __repr__(self):
+        return '<Tweet %r>' % self.text

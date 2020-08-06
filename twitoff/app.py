@@ -6,11 +6,10 @@ from .twitter import add_or_update_user, update_all_users, add_default_users
 from .predict import predict_user
 
 # the following code is all from the Bruno lecture
-
 load_dotenv()
 
-# The following code comes from the Alex Kim lecture
 
+# The following code comes from the Alex Kim lecture
 def create_app():
     """Create and configure an instance of the Flask application"""
     app = Flask(__name__)
@@ -22,8 +21,8 @@ def create_app():
     def root():
         DB.create_all()
         return render_template('base.html',
-                                title='Home',
-                                users=User.query.all())
+                               title='Home',
+                               users=User.query.all())
 
     @app.route('/user', methods=['POST'])
     @app.route('/user/<name>', methods=['GET'])
@@ -38,9 +37,9 @@ def create_app():
             message = f'Error while trying to add user {name}: {e}'
             tweets = []
         return render_template('user.html',
-                                title=name,
-                                message=message,
-                                tweets=tweets)
+                               title=name,
+                               message=message,
+                               tweets=tweets)
 
     @app.route('/compare', methods=['POST'])
     def compare(messages=''):
@@ -59,8 +58,8 @@ def create_app():
                 request.values['tweet_text'], user1 if prediction else user2,
                 user2 if prediction else user1)
         return render_template('predict.html',
-                                title='Prediction',
-                                message=message)
+                               title='Prediction',
+                               message=message)
 
     @app.route('/reset')
     def reset():
@@ -72,16 +71,29 @@ def create_app():
     def update():
         update_all_users()
         return render_template('base.html',
-                                users=User.query.all(),
-                                title='All Tweets updated!!')
+                               users=User.query.all(),
+                               title='All Tweets updated!!')
 
     @app.route('/add_default')
     def add_default():
         DB.create_all()
         add_default_users()
         return render_template('base.html',
-                                users=User.query.all(),
-                                title='Added all default users to database')
-
+                               users=User.query.all(),
+                               title='Added all default users to database')
 
     return app
+
+# from flask import Flask
+#
+#
+# def create_app():
+#     '''create and configure an instance of the Flask application'''
+#
+#     app = Flask(__name__)
+#
+#     @app.route('/')
+#     def root():
+#         return 'welcome to twitoff!'
+#
+#     return app

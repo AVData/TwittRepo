@@ -2,13 +2,15 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return 'The Index Page'
 
 @app.route('/hello')
-def hello():
+def hello_world():
     return 'Hello, World'
+
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -16,5 +18,5 @@ def show_user_profile(username):
     return f'{username}'
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+# if __name__ == "__main__":
+    # app.run(debug=True, port=8080)

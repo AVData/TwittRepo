@@ -7,7 +7,7 @@
     </head>
     <body>
         <nav>
-            <a href="/" class="brand"><span>TwitOff!</span></a>
+            <a href="/" class="brand"><span></span></a>
 
             <!-- responsive-->
             <input id="bmenub" type="checkbox" class="show">
@@ -41,7 +41,7 @@
                 </form>
             </div>
             <div>
-                <h2>Twitter Users</h2>
+                <h2>Users</h2>
                 {% for user in users %}
                 <a href="/user/{{ user.name }}"><span class="stack">{{ user.name }}</span></a>
                 {% endfor %}

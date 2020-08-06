@@ -6,10 +6,9 @@ from twitoff.models import DB, Tweet, User
 
 TWITTER_USERS = ['elonmusk',
                  'nasa',
-                 'emma_ranforest',
                  'google',
                  'theeconomist',
-                 'browneyesvargas']
+                 'sentientcells']
 
 TWITTER_AUTH = tweepy.OAuthHandler(config('TWITTER_CONSUMER_API_KEY'),
                                    config('TWITTER_CONSUMER_API_SECRET'))
