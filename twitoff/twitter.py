@@ -32,9 +32,8 @@ def add_or_update_user(name):
         twitter_user = TWITTER.get_user(name)
 
         # Adds db_user to user table
-        db_user = (User.query.get(twitter_user.id) or
-                   User(id=twitter_user.id,
-                        name=name))
+        db_user = (User.query.get(twitter_user.id) or User(id=twitter_user.id,
+                                                           name=name))
         DB.session.add(db_user)
 
         # adds recent non-retweet/reply tweets
@@ -44,6 +43,7 @@ def add_or_update_user(name):
                                        include_rts=False,
                                        tweet_mode='extended',
                                        since_id=db_user.newest_tweet_id)
+        # Add newest_tweet_id to the user table
         # to build a better model, we should include the functionality
         # with a since argument in the twitter_user.timeline()
         # do it like... hack is get from tweet id == 1, and then pupoulate
