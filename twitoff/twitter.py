@@ -44,6 +44,10 @@ def add_or_update_user(name):
                                        include_rts=False,
                                        tweet_mode='extended',
                                        since_id=db_user.newest_tweet_id)
+        # to build a better model, we should include the functionality
+        # with a since argument in the twitter_user.timeline()
+        # do it like... hack is get from tweet id == 1, and then pupoulate
+        # up until recent times to give the model better predictive ability
 
         # Includes additional user info to User table in our database
         if tweets:
