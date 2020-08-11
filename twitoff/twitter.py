@@ -73,9 +73,11 @@ def add_or_update_user(name):
     else:
         DB.session.commit()
 
+
 def add_default_users(users=TWITTER_USERS):
     for user in users:
         add_or_update_user(user)
+
 
 def update_all_users():
     for user in User.query.all():
