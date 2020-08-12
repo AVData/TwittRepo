@@ -33,6 +33,5 @@ class Tweet(DB.Model):
                            backref=DB.backref('tweets',
                                               lazy=True))
 
-
     def __repr__(self):
         return '<Tweet %r>' % self.text
