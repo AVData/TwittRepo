@@ -128,3 +128,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# gitignore In order to gitignore the cached
+# files run the following line git rm --cached <dir name>/<file name>.sqlite
