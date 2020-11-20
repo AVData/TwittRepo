@@ -1,4 +1,6 @@
-from os import getenv
+"""Infrastrucutre to build app."""
+
+
 from decouple import config
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
@@ -12,15 +14,19 @@ load_dotenv()
 
 # The following code comes from the Alex Kim lecture
 def create_app():
-    """Create and configure an instance of the Flask application"""
+    """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Initializes Database
     DB.init_app(app)
 
+    # Decorator listens for specific end point visits
     @app.route('/')
     def root():
         DB.create_all()
+        # Renders HTML template
         return render_template('base.html',
                                title='Home',
                                users=User.query.all())
@@ -44,15 +50,11 @@ def create_app():
 
     @app.route('/compare', methods=['POST'])
     def compare(messages=''):
-        user1 = request.values['user1']
-        user2 = request.values['user2']
+        user1, user2 = request.values['user1'], request.values['user2']
         tweet_text = request.values['tweet_text']
 
         if user1 == user2:
             message = 'Error: Compare two different users!'
-            # return render_template('predict.html',
-            #                         title='Prediction',
-            #                         message=message)
         else:
             prediction = predict_user(user1, user2, tweet_text)
             message = '"{}" is more likely to be said by {} than {}'.format(
@@ -84,17 +86,3 @@ def create_app():
                                title='Added all default users to database')
 
     return app
-
-# from flask import Flask
-#
-#
-# def create_app():
-#     '''create and configure an instance of the Flask application'''
-#
-#     app = Flask(__name__)
-#
-#     @app.route('/')
-#     def root():
-#         return 'welcome to twitoff!'
-#
-#     return app

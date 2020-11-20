@@ -35,7 +35,6 @@
 4. Size of Data
 5. Type of algos/models
 6. Can this be done without ML?
-7.
 
 
 
@@ -61,7 +60,7 @@ What is Flask?
 Why?
 - Not a backend service
 - Nothing new in Flask, just does what it does.
-- Well documented, widespread use 
+- Well documented, widespread use
 
 
 

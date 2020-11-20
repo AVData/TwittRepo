@@ -1,8 +1,9 @@
+"""Model creates embeddings of user Tweets to populate DB."""
+
 import tweepy
-import basilica
+import spacy
 from decouple import config
 from twitoff.models import DB, Tweet, User
-
 
 TWITTER_USERS = ['elonmusk',
                  'nasa',
@@ -12,21 +13,28 @@ TWITTER_USERS = ['elonmusk',
                  'spotify',
                  'championsleague',
                  'replyall',
-                 'thisamerlife']
+                 'thisamerlife',
+                 'lexfridman']
 
 TWITTER_AUTH = tweepy.OAuthHandler(config('TWITTER_CONSUMER_API_KEY'),
                                    config('TWITTER_CONSUMER_API_SECRET'))
 TWITTER_AUTH.set_access_token(config('TWITTER_ACCESS_TOKEN'),
                               config('TWITTER_ACCESS_TOKEN_SECRET'))
 TWITTER = tweepy.API(TWITTER_AUTH)
-BASILICA = basilica.Connection(config('BASILICA_KEY'))
+
+nlp = spacy.load('my_model')
+
+
+def vectorize_tweet(tweet_text):
+    """Model vectorizes tweet."""
+    return nlp(tweet_text).vector
 
 
 def add_or_update_user(name):
-    '''
-    Adds or updates user and their tweets.
+    """Add or updates user and their tweets.
+
     Returns error if user doesn't exist or is private.
-    '''
+    """
     try:
         # Gets user through tweepy API
         twitter_user = TWITTER.get_user(name)
@@ -56,14 +64,14 @@ def add_or_update_user(name):
         # looping over tweets
         for tweet in tweets:
 
-            # as Bruno states, we need to get basilica embedding for each tweet
-            embedding = BASILICA.embed_sentence(tweet.full_text,
-                                                model='twitter')
-
+            # Tweet gets vectorized by the model, and added to the DB
+            vectorized_tweet = vectorize_tweet(tweet.full_text)
             # Adds tweet info to Tweets table
-            db_tweet = Tweet(id=tweet.id,
-                             text=tweet.full_text[:300],
-                             embedding=embedding)
+            db_tweet = Tweet(
+                            id=tweet.id,
+                            text=tweet.full_text,
+                            vect=vectorized_tweet
+                            )
             db_user.tweets.append(db_tweet)
             DB.session.add(db_tweet)
 
@@ -75,10 +83,12 @@ def add_or_update_user(name):
 
 
 def add_default_users(users=TWITTER_USERS):
+    """As funct name states, adds default users."""
     for user in users:
         add_or_update_user(user)
 
 
 def update_all_users():
+    """Update each of the users in DB."""
     for user in User.query.all():
         add_or_update_user(user.name)

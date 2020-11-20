@@ -1,6 +1,8 @@
-# Entry point for twitoff application
-# in order to run application you must type the .py file in the terminal
-# as such: FLASK_APP=twitoff:APP flask run
+"""The following lines of code initialize the application.
+
+Entry point for twitoff application.  In order to run application you must
+type the following in the terminal: FLASK_APP=twitoff:APP flask run.
+"""
 
 from .app import create_app
 
